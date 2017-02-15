@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Drum Kit</title>
+  <link rel="stylesheet" href="style2.css">
+</head>
+
+<body>
+
+  <h1>罐頭聲音產生器</h1>
+  <div class="keys">
+    <div data-key="65" class="key">
+      <kbd>A</kbd>
+      <span class="sound">愛睏</span>
+    </div>
+    <div data-key="83" class="key">
+      <kbd>S</kbd>
+      <span class="sound">喔你媽</span>
+    </div>
+    <div data-key="68" class="key">
+      <kbd>D</kbd>
+      <span class="sound">歡呼</span>
+    </div>
+    <div data-key="70" class="key">
+      <kbd>F</kbd>
+      <span class="sound">噴嚏</span>
+    </div>
+    <div data-key="71" class="key">
+      <kbd>G</kbd>
+      <span class="sound">狂笑</span>
+    </div>
+  </div>
+
+  <audio data-key="65" src="sounds/zzz.wav"></audio>
+  <audio data-key="83" src="sounds/tarzan2.wav"></audio>
+  <audio data-key="68" src="sounds/ccheer.wav"></audio>
+  <audio data-key="70" src="sounds/atchoum.wav"></audio>
+  <audio data-key="71" src="sounds/madmoo.wav"></audio>
+
+<script>
+
+
+function playSound(e){
+  const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+  const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+  if(!audio) return;
+  audio.currentTime = 4;
+  audio.play();
+  key.classList.add('playing');
+  }
+
+function removeTransition(e){
+  if(e.propertyName !=='transform') return;
+  this.classList.remove('playing');
+}
+const keys = document.querySelectorAll('.key');
+keys.forEach(key=> key.addEventListener('transitionend',removeTransition));
+window.addEventListener('keydown',playSound);
+</script>
+
+
+</body>
+</html>
