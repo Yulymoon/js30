@@ -204,4 +204,75 @@ lineCap 属性设置或返回线条末端线帽的样式。
 當inBetween為true時 每個checkbox的checked都變為true;
 (起點與終點之間的checkbox並不符合checkbox === this || checkbox === lastchecked的條件，
   所以isBetween=true) 等到跑到第一次點擊的地方lastchecked為true >inBetween=!inBetween
-  
+
+
+11.自製video player!
+因為要對.player下的影片動作，所以使用querySelector先選到.player
+寫個togglePlay function 當點擊的時候播放
+對整個影片綁一個click監聽事件addEventListener('click',togglePlay)
+(點擊時播放)
+影片在播放和暫停的時候想要知道目前的狀態
+addEventListener 監聽play或是pause的時候 執行updateButton
+
+  function updateButton() {
+    const icon = this.paused ? '►' : '❚ ❚';
+    console.log(icon);
+    toggle.textContent = icon;
+  }
+
+讓toggle的textcontent帶入icon
+
+影片想要快轉
+對每一個快轉button綁一個click監聽事件addEventListener
+
+skipButtons.forEach(button => button.addEventListener ('click' , skip))
+
+skin函式中使用dataset來改變影片的值
+dataset.skip
+
+parsefloat
+http://www.w3school.com.cn/jsref/jsref_parseFloat.asp
+
+對控制音量以及速度的range綁一個click監聽事件addEventListener
+
+並且執行一個handlerange function將input中的name的變數新增成當前所選擇的
+video[this.name]=this.value;
+
+要控制目前影片播放的progressbar
+由於progress的寬度是用flex-basis 的百分比去調整的
+時間會一直變更，先綁一個監聽事件當時間變更的時候隨著增加寬度
+
+function handleProgress(){
+  const percent = (video.currentTime / video.duration) * 100;
+  progressBar.style.flexBasis = `${percent}%`;
+}
+
+video.addEventListener('timeupdate', handleProgress);
+
+還希望點擊的時候也能移動到當前寬度
+
+對range綁監聽事件當滑鼠點擊結束的時候執行scrub function
+改變flex-basis的值
+
+function handleProgress(){
+  const percent = (video.currentTime / video.duration) * 100;
+  progressBar.style.flexBasis = `${percent}%`;
+}
+
+function scrub(e) {
+  const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
+  video.currentTime = scrubTime;
+}
+
+想要滑鼠拖曳來改變寬度
+宣告mousedown為flase
+當滑鼠點擊的時候mousedown為true
+此時觸發(e) => mousedown && scrub(e)) 改變影片時間到當前滑鼠移到的時間
+當滑鼠點擊結束mousedown=>flase
+
+
+let mousedown = false;
+progress.addEventListener('click', scrub);
+progress.addEventListener('mousemove', (e) => mousedown && scrub(e));
+progress.addEventListener('mousedown', () => mousedown = true);
+progress.addEventListener('mouseup', () => mousedown = false);
