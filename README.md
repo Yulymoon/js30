@@ -183,3 +183,25 @@ var arr1 = [0, 1, 2];var arr2 = [3, 4, 5];arr1.push(...arr2);
   slice會提取所選定範圍的值
 
 8.
+
+http://www.w3school.com.cn/jsref/met_canvas_getcontext.asp
+getContext() 方法返回一個返回一個用於在畫布上繪圖的環境 (目前只允許2d)
+
+http://www.w3school.com.cn/tags/html_ref_canvas.asp
+strokeStyle 属性设置或返回用于笔触的颜色、渐变或模式
+lineJoin 属性设置或返回所创建边角的类型，当两条线交汇时。
+lineCap 属性设置或返回线条末端线帽的样式。
+
+
+9.
+
+10.
+一樣先使用querySelectorAll選到.inbox下的所有input [type="checkbox"]
+在使用forEach對每個input做addEventListener監聽方法，當'click'時觸發handle事件
+由於想要能局部圈選 必須知道起始點和終點是什麼
+先預設兩個變數inBetween=flase ; lastchecked//上一個點的
+當e.shiftKey時跑迴圈，第一輪由於checkbox === this 這時候inBetween變為!inBetween
+當inBetween為true時 每個checkbox的checked都變為true;
+(起點與終點之間的checkbox並不符合checkbox === this || checkbox === lastchecked的條件，
+  所以isBetween=true) 等到跑到第一次點擊的地方lastchecked為true >inBetween=!inBetween
+  
